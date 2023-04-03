@@ -154,7 +154,7 @@ public class Parser {
             else if ( Character.isDigit(formula[i]) && !Character.isDigit(formula[i + 1]) && availableSigns.indexOf(formula[i + 1]) == -1 && formula[i + 1] != ')') {
                 return "After number, must be a sign or another number";
             }
-            else if (formula[i] == '(' && !(formula[i + 1] == '(' || Character.isDigit(formula[i + 1]) || Character.isLetter(formula[i]))) {
+            else if (formula[i] == '(' && !(formula[i + 1] == '(' || Character.isDigit(formula[i + 1]) || Character.isLetter(formula[i + 1]))) {
                 return "After open brackets must be a another bracket or number/variable";
             }
             else if (formula[i] == ')' && !(formula[i + 1] == '(' || formula[i + 1] == ')' || availableSigns.indexOf(formula[i + 1]) != -1)) {
