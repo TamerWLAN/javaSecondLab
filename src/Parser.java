@@ -75,6 +75,38 @@ public class Parser {
         return true;
     }
     private String checkLogical() {
+        final String availableSigns = "+-*/^";
+
+        if (availableSigns.indexOf(formula[0]) != -1 &&  availableSigns.indexOf(formula[0]) != 1) {
+            return "String must be started with minus sign or number";
+        }
+        if (availableSigns.indexOf(formula[formula.length - 1]) != -1) {
+            return "String must not ended on sign";
+        }
+
+        for (int i = 0; i < formula.length - 1; i++) {
+            if(Character.isLetter(formula[i]) && Character.isLetter(formula[i + 1])){
+                return "Variable must be called single letter";
+            }
+            else if ( Character.isLetter(formula[i]) && availableSigns.indexOf(formula[i + 1]) == -1 && formula[i + 1] != ')') {
+                return "After variable, must be a sign";
+            }
+            else if ( Character.isDigit(formula[i]) && !Character.isDigit(formula[i + 1]) && availableSigns.indexOf(formula[i + 1]) == -1 && formula[i + 1] != ')') {
+                return "After number, must be a sign or another number";
+            }
+            else if (formula[i] == '(' && !(formula[i + 1] == '(' || Character.isDigit(formula[i + 1]) || Character.isLetter(formula[i]))) {
+                return "After brackets must be a another bracket or number/variable";
+            }
+            else if (availableSigns.indexOf(formula[i]) != -1 && availableSigns.indexOf(formula[i + 1]) != -1) {
+                return "There must not be two signs in a row";
+            }
+            else if (formula[i] == '(' && formula[i + 1] == ')') {
+                return "There must not be empty brackets";
+            }
+            else if (availableSigns.indexOf(formula[i]) != -1 && formula[i + 1] == ')') {
+                return "After sign must be a number/variable or open bracket";
+            }
+        }
         return "";
     }
     private void check() {
