@@ -72,7 +72,23 @@ public class Parser {
         }
     }
     private boolean checkBracketsOrder() {
-        return true;
+        Deque<Character> brackets = new LinkedList<>();
+
+        for (Character elem : formula) {
+            if(elem == '(') {
+                brackets.push(elem);
+            }
+            else if (elem == ')') {
+                if (!brackets.isEmpty()) {
+                    brackets.pop();
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+        return brackets.isEmpty();
     }
     private String checkLogical() {
         final String availableSigns = "+-*/^";
