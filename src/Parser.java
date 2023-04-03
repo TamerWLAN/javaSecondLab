@@ -9,7 +9,7 @@ public class Parser {
     private final Map<String, Integer> priority;
     public Parser(final String toCalculate) {
         if (toCalculate != null) {
-            formula = toCalculate.toCharArray();
+            formula = toCalculate.replace(" ","").toCharArray();
             elements = new ArrayList<>();
             postfixElements = new ArrayList<>();
             priority = new HashMap<>() {{
@@ -41,6 +41,9 @@ public class Parser {
             else {
                 number.append(elem);
             }
+        }
+        if(!number.toString().equals("")) {
+            elements.add(number.toString());
         }
     }
     private void goToReversePolandNotation() {
@@ -93,8 +96,8 @@ public class Parser {
     private String checkLogical() {
         final String availableSigns = "+-*/^";
 
-        if (availableSigns.indexOf(formula[0]) != -1 &&  availableSigns.indexOf(formula[0]) != 1) {
-            return "String must be started with minus sign or number";
+        if (availableSigns.indexOf(formula[0]) != -1) {
+            return "String must be started with number/variables or bracket";
         }
         if (availableSigns.indexOf(formula[formula.length - 1]) != -1) {
             return "String must not ended on sign";
